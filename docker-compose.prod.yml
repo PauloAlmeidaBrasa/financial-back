@@ -1,4 +1,6 @@
 
+
+
 services:
   api:
     container_name: financial-flask-api-prod
@@ -9,16 +11,40 @@ services:
     env_file:
       - .env
     volumes: []
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       FLASK_DEBUG: "false"
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT:-5432}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     restart: unless-stopped
 
-  db:
-    container_name: financial-flask-db-prod
-    ports: []
-    volumes:
-      - pgdata_prod:/var/lib/postgresql/data
-    restart: unless-stopped
 
-volumes:
-  pgdata_prod:
+
+
+# services:
+#   api:
+#     container_name: financial-flask-api-prod
+#     build: null
+#     image: ${DOCKERHUB_IMAGE:?Set DOCKERHUB_IMAGE}
+#     ports:
+#       - "5001:5000"
+#     env_file:
+#       - .env
+#     volumes: []
+#     environment:
+#       FLASK_DEBUG: "false"
+#     restart: unless-stopped
+
+  # db:
+  #   container_name: financial-flask-db-prod
+  #   ports: []
+  #   volumes:
+  #     - pgdata_prod:/var/lib/postgresql/data
+  #   restart: unless-stopped
+
+# volumes:
+#   pgdata_prod:
