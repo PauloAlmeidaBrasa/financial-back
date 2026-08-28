@@ -1,16 +1,21 @@
+
 services:
   api:
     container_name: financial-flask-api-prod
+    build: null
+    image: ${DOCKERHUB_IMAGE:?Set DOCKERHUB_IMAGE}
     ports:
-      - "5002:5000"
+      - "5001:5000"
+    env_file:
+      - .env
+    volumes: []
     environment:
       FLASK_DEBUG: "false"
     restart: unless-stopped
 
   db:
     container_name: financial-flask-db-prod
-    ports:
-      - "5435:5432"
+    ports: []
     volumes:
       - pgdata_prod:/var/lib/postgresql/data
     restart: unless-stopped
