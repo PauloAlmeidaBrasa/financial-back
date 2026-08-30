@@ -22,6 +22,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     restart: unless-stopped
 
+  db: !reset null
 
 
 
