@@ -7,7 +7,7 @@ services:
     build: null
     image: ${DOCKERHUB_IMAGE:?Set DOCKERHUB_IMAGE}
     ports:
-      - "5001:5000"
+      - "5000:5000"
     env_file:
       - .env
     volumes: []
