@@ -10,9 +10,14 @@ class Config:
     DEBUG = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
     JSON_SORT_KEYS = False
 
-    DATABASE_URL = os.environ.get(
-        "DATABASE_URL", "postgresql+psycopg2://postgres:postgres@db:5432/financial_api"
-    )
+    DATABASE_URL = URL.create(
+        drivername="postgresql+psycopg2",
+        username=os.environ.get("DATABASE_USER", "postgres"),
+        password=os.environ.get("DATABASE_PASSWORD", "postgres"),
+        host=os.environ.get("DATABASE_HOST", "db"),
+        port=os.environ.get("DATABASE_PORT", "5432"),
+        database=os.environ.get("DATABASE_NAME", "financial_api"),
+    ).render_as_string(hide_password=False)
 
     # The remote database is reached via discrete host/port/user/password instead of a single URL,
     # so URL.create builds it and safely escapes any special characters in the credentials.

@@ -11,6 +11,7 @@ services:
     env_file:
       - .env
     volumes: []
+    depends_on: !reset []
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
